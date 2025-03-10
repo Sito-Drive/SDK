@@ -115,13 +115,6 @@ vector<int> MotorControl::reset()
     }
 }
 
-void MotorControl::reset()
-{
-    ID.back() = 0x00;
-    ID[2] = motor_id;
-    insert_and_send_data();
-}
-
 void MotorControl::mode_selection(const Mode& mode, const uint8_t& Feedback_cycle1, const uint8_t& Feedback_cycle2, const uint8_t& Feedback_cycle3)
 {
     ID.back() = 0x01;
