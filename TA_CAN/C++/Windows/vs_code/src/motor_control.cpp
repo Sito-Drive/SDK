@@ -39,19 +39,6 @@ void MotorControl::closeport()
     }
 }
 
-// MotorControl::~MotorControl()
-// {
-//     if (ser.isOpen())
-//     {
-//         ser.close();
-//         cout << "Serial port closed" << endl;
-//     }
-//     else 
-//     {
-//         cout << "Serial port was not open" << endl;
-//     }
-// }
-
 void MotorControl::set_object_id(const uint8_t& new_id)
 {
     motor_id = new_id;
@@ -90,25 +77,18 @@ vector<int> MotorControl::reset()
                 response_data[3] == motor_id &&
                 response_data[4] == 0xB0)
             {
-                for (uint8_t byte : response_data)
-                {
-                    cout << hex << setw(2) << uppercase << setfill('0') << static_cast<int>(byte) << " ";
-                }
-                cout << endl;
                 vector<int> b(response_data.begin() + 5, response_data.begin() + 9);
                 auto version = (b[0] << 24) + (b[1] << 16) + (b[2] << 8) + b[3];
                 results[0] = version;
                 vector<int> a(response_data.begin() + 9, response_data.begin() + 13);
                 auto date = (a[0] << 24) | (a[1] << 16) | (a[2] << 8) | a[3];
                 results[1] = date;
-                //cout << hex << version << " " << dec << date << endl;
                 return results;
             }
         }
         auto elapsed_time = chrono::steady_clock::now() - start_time;
         if (chrono::duration_cast<chrono::seconds>(elapsed_time).count() >= 0.2)
         {
-            cout << "Timeout: No valid response received within 0.2 seconds." << endl;
             return results;
         }
         this_thread::sleep_for(chrono::milliseconds(10));
