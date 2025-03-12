@@ -89,7 +89,7 @@ vector<int> MotorControl::reset()
         auto elapsed_time = chrono::steady_clock::now() - start_time;
         if (chrono::duration_cast<chrono::seconds>(elapsed_time).count() >= 0.2)
         {
-            cout << "Timeout: No valid response received within 0.2 seconds." << endl;
+            // cout << "Timeout: No valid response received within 0.2 seconds." << endl;
             return results;
         }
         this_thread::sleep_for(chrono::milliseconds(10));
