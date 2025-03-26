@@ -40,17 +40,16 @@ class MotorControl:
                     feedback1 = ''.join([f'{byte:02X}' for byte in packet[5:9]])
                     feedback2 = int.from_bytes(packet[9:13], byteorder='big', signed=True)
                     results.append([motor_id, feedback1, feedback2])
-                    return results
+                else: results.append([motor_id])
             else:
                 feedback = self.ser.read(13)
                 if len(feedback) == 13 and feedback[4] == 0xB0:
                     feedback1 = ''.join([f'{byte:02X}' for byte in feedback[5:9]])
                     feedback2 = int.from_bytes(feedback[9:13], byteorder='big', signed=True)
                     results.append([motor_id, feedback1, feedback2])
-                    return results
-                else:
-                    results = None
+                else: results.append([motor_id])
         self.ser.timeout = 5
+        return results
 
     def mode_selection(self, serial_num, Feedback_cycle1, Feedback_cycle2, Feedback_cycle3):
         for motor_id in self.ids:
