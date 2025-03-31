@@ -9,6 +9,7 @@ class MotorControl:
             self.ser = serial.Serial(serial_port, baudrate)
             self.ser.timeout = 5
             self.ids = id_values
+            self.is_connected = self.ser.is_open
         except serial.SerialException as e:
             print(f"Serial port connection failed: {e}")
             self.ser = None
