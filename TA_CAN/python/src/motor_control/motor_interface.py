@@ -13,10 +13,12 @@ class MotorControl:
         except serial.SerialException as e:
             print(f"Serial port connection failed: {e}")
             self.ser = None
+            self.is_connected = False
 
     def close_serial(self):
         if self.ser:
             self.ser.close()
+            self.is_connected = False
             print("Serial port closed")
 
     def Reset(self,flag):
