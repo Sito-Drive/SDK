@@ -353,7 +353,7 @@ MotorStatus MotorControl::get_motor_status(vector<uint8_t> header_types)
     default:
         break;
     }
-
+    clearBuffer();
     MotorStatus status;
     auto start_time = chrono::steady_clock::now();
     vector<uint8_t> feedback;
