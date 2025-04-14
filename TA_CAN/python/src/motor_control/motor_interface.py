@@ -281,6 +281,7 @@ class MotorControl:
         results = []
         for motor_id in self.ids:
             start_time = time.time()
+            self.ser.reset_input_buffer()
             while self.ser.in_waiting < 117 and time.time() - start_time <= 3:
                 time.sleep(0.01)
             feedback = self.ser.read(self.ser.in_waiting)
@@ -302,6 +303,7 @@ class MotorControl:
         results = []
         for motor_id in self.ids:
             start_time = time.time()
+            self.ser.reset_input_buffer()
             while self.ser.in_waiting < 117 and time.time() - start_time <= 3:
                 time.sleep(0.01)
             feedback = self.ser.read(self.ser.in_waiting)
@@ -321,6 +323,7 @@ class MotorControl:
         results = []
         for motor_id in self.ids:
             start_time = time.time()
+            self.ser.reset_input_buffer()
             while self.ser.in_waiting < 117 and time.time() - start_time <= 3:
                 time.sleep(0.01)
             feedback = self.ser.read(self.ser.in_waiting)
