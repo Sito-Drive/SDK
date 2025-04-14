@@ -3,9 +3,9 @@ import subprocess
 import sys
 import os
 
-def run(cmd, shell=True):
+def run(cmd):
     print(f"[*] Running: {cmd}")
-    result = subprocess.run(cmd, shell=shell)
+    result = subprocess.run(cmd)
     if result.returncode != 0:
         print("[!] Command failed")
         sys.exit(result.returncode)
