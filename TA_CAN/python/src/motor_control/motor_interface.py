@@ -83,6 +83,7 @@ class MotorControl:
             data = [0x88] + [(id >> 24) & 0xFF, (id >> 16) & 0xFF, (id >> 8) & 0xFF, id & 0xFF] + value
             byte_data = bytes(data)
             self.ser.write(byte_data)
+            time.sleep(0.001)
 
     def write_open_loop(self, pwm_values):
         for motor_id, pwm_value in zip(self.ids, pwm_values):
@@ -93,6 +94,7 @@ class MotorControl:
             data = [0x88] + [(id >> 24) & 0xFF, (id >> 16) & 0xFF, (id >> 8) & 0xFF, id & 0xFF] + value
             byte_data = bytes(data)
             self.ser.write(byte_data)
+            time.sleep(0.001)
 
     def write_current(self, current_values):
         for motor_id, current_value in zip(self.ids, current_values):
@@ -103,6 +105,7 @@ class MotorControl:
             data = [0x88] + [(id >> 24) & 0xFF, (id >> 16) & 0xFF, (id >> 8) & 0xFF, id & 0xFF] + value
             byte_data = bytes(data)
             self.ser.write(byte_data)
+            time.sleep(0.001)
 
     def write_profile_velocity(self, current_values, velocity_values):
         for motor_id, current_value, velocity_value in zip(self.ids, current_values, velocity_values):
@@ -115,6 +118,7 @@ class MotorControl:
             data = [0x88] + [(id >> 24) & 0xFF, (id >> 16) & 0xFF, (id >> 8) & 0xFF, id & 0xFF] + value
             byte_data = bytes(data)
             self.ser.write(byte_data)
+            time.sleep(0.001)
 
     def write_profile_position(self, current_values, velocity_values, position_values):
         for motor_id, current_value, velocity_value, position_value in zip(self.ids, current_values, velocity_values, position_values):
@@ -131,6 +135,7 @@ class MotorControl:
             data = [0x88] + [(id >> 24) & 0xFF, (id >> 16) & 0xFF, (id >> 8) & 0xFF, id & 0xFF] + value
             byte_data = bytes(data)
             self.ser.write(byte_data)
+            time.sleep(0.001)
 
     def write_position(self, current_values, velocity_values, position_values):
         for motor_id, current_value, velocity_value, position_value in zip(self.ids, current_values, velocity_values, position_values):
@@ -147,6 +152,7 @@ class MotorControl:
             data = [0x88] + [(id >> 24) & 0xFF, (id >> 16) & 0xFF, (id >> 8) & 0xFF, id & 0xFF] + value
             byte_data = bytes(data)
             self.ser.write(byte_data)
+            time.sleep(0.001)
 
     def write_mit(self, current_values, velocity_values, position_values, kps, kis):
         for motor_id, current_value, velocity_value, position_value, kp, ki in zip(self.ids, current_values, velocity_values, position_values, kps, kis):
@@ -178,6 +184,7 @@ class MotorControl:
             data = [0x88] + [(id >> 24) & 0xFF, (id >> 16) & 0xFF, (id >> 8) & 0xFF, id & 0xFF] + value
             byte_data = bytes(data)
             self.ser.write(byte_data)
+            time.sleep(0.001)
 
     def brake_control(self, pwm_values, time_values):
         for motor_id, pwm_value, time_value in zip(self.ids, pwm_values, time_values):
