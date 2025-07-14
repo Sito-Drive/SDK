@@ -154,8 +154,8 @@ class MotorControl:
             self.ser.write(byte_data)
             time.sleep(0.001)
 
-    def write_mit(self, current_values, velocity_values, position_values, kps, kis):
-        for motor_id, current_value, velocity_value, position_value, kp, ki in zip(self.ids, current_values, velocity_values, position_values, kps, kis):
+    def write_mit(self, current_values, velocity_values, position_values, kps, kds):
+        for motor_id, current_value, velocity_value, position_value, kp, kd in zip(self.ids, current_values, velocity_values, position_values, kps, kds):
             id = 0x05060000 + (motor_id << 8) + MIT_MODE
             value = [0x55] * 8
             value[0] = (int(current_value) >> 8) & 0xFF
@@ -170,17 +170,17 @@ class MotorControl:
             byte_data = bytes(data)
             self.ser.write(byte_data)
             kp_bytes = struct.pack('!f', kp)
-            ki_bytes = struct.pack('!f', ki)
+            kd_bytes = struct.pack('!f', kd)
             id = 0x05060000 + (motor_id << 8) + MIT_PID_SET
             value = [0x55] * 8
             value[0] = kp_bytes[0]
             value[1] = kp_bytes[1]
             value[2] = kp_bytes[2]
             value[3] = kp_bytes[3]
-            value[4] = ki_bytes[0]
-            value[5] = ki_bytes[1]
-            value[6] = ki_bytes[2]
-            value[7] = ki_bytes[3]
+            value[4] = kd_bytes[0]
+            value[5] = kd_bytes[1]
+            value[6] = kd_bytes[2]
+            value[7] = kd_bytes[3]
             data = [0x88] + [(id >> 24) & 0xFF, (id >> 16) & 0xFF, (id >> 8) & 0xFF, id & 0xFF] + value
             byte_data = bytes(data)
             self.ser.write(byte_data)

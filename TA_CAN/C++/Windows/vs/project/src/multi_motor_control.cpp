@@ -127,13 +127,13 @@ void MultiMotorControl::write_position(const vector<int16_t>& Current_Values, co
 }
 
 void MultiMotorControl::write_mit(const vector<int16_t>& Current_Values, const vector<int16_t>& Velocity_Values, const vector<int32_t>& Position_Values,
-    const vector<float>& KPs, const vector<float>& KIs)
+    const vector<float>& KPs, const vector<float>& KDs)
 {
     validate_param_size(Current_Values, "Current_Values");
     validate_param_size(Velocity_Values, "Velocity_Values");
     validate_param_size(Position_Values, "Positin_Values");
     validate_param_size(KPs, "KPs");
-    validate_param_size(KIs, "KIs");
+    validate_param_size(KDs, "KDs");
     for (size_t i = 0; i < motor_ids_.size(); ++i)
     {
         uint8_t id = motor_ids_[i];
@@ -141,10 +141,10 @@ void MultiMotorControl::write_mit(const vector<int16_t>& Current_Values, const v
         int16_t Velocity_Value = Velocity_Values.size() == 1 ? Velocity_Values[0] : Velocity_Values[i];
         int32_t Positin_Value = Position_Values.size() == 1 ? Position_Values[0] : Position_Values[i];
         float KP = KPs.size() == 1 ? KPs[0] : KPs[i];
-        float KI = KIs.size() == 1 ? KIs[0] : KIs[i];
+        float KD = KDs.size() == 1 ? KDs[0] : KDs[i];
 
         MotorControl::set_object_id(id);
-        MotorControl::write_mit(Current_Value, Velocity_Value, Positin_Value, KP, KI);
+        MotorControl::write_mit(Current_Value, Velocity_Value, Positin_Value, KP, KD);
     }
 }
 

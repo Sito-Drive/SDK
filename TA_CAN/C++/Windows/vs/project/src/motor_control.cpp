@@ -175,28 +175,28 @@ void MotorControl::write_position(const int16_t& Current_Value, const int16_t& V
     insert_and_send_data();
 }
 
-void MotorControl::write_mit(const int16_t& Current_Value, const int16_t& Velocity_Value, const int32_t& Positin_Value, const float& KP, const float& KI)
+void MotorControl::write_mit(const int16_t& Current_Value, const int16_t& Velocity_Value, const int32_t& Positin_Value, const float& KP, const float& KD)
 {
     write_profile_position(Current_Value, Velocity_Value, Positin_Value, Mode::MIT_MODE);
 
     ID.back() = static_cast<int>(Mode::MIT_PID_SET);
-    union buf_kp_ki
+    union buf_kp_kd
     {
         float f[2];
         uint8_t u8[8];
     };
-    buf_kp_ki kp_ki;
-    kp_ki.f[0] = KP;
-    kp_ki.f[1] = KI;
+    buf_kp_kd kp_kd;
+    kp_kd.f[0] = KP;
+    kp_kd.f[1] = KD;
 
-    Data[0] = kp_ki.u8[3];
-    Data[1] = kp_ki.u8[2];
-    Data[2] = kp_ki.u8[1];
-    Data[3] = kp_ki.u8[0];
-    Data[4] = kp_ki.u8[7];
-    Data[5] = kp_ki.u8[6];
-    Data[6] = kp_ki.u8[5];
-    Data[7] = kp_ki.u8[4];
+    Data[0] = kp_kd.u8[3];
+    Data[1] = kp_kd.u8[2];
+    Data[2] = kp_kd.u8[1];
+    Data[3] = kp_kd.u8[0];
+    Data[4] = kp_kd.u8[7];
+    Data[5] = kp_kd.u8[6];
+    Data[6] = kp_kd.u8[5];
+    Data[7] = kp_kd.u8[4];
     insert_and_send_data();
 }
 
