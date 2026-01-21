@@ -14,6 +14,7 @@ class MotorControl:
             print(f"Serial port connection failed: {e}")
             self.ser = None
             self.is_connected = False
+            raise
 
     def close_serial(self):
         if self.ser:
